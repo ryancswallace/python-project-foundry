@@ -1,0 +1,46 @@
+# Source repository and GitHub automation
+
+repository_owner:
+  type: str
+  help: GitHub user or organization that will own the repository.
+  default: acme
+  validator: >-
+    {% if not repository_owner
+      or not repository_owner | regex_search(
+        "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$"
+      ) %}
+    Enter a GitHub user or organization name without an @ prefix.
+    {% endif %}
+
+repository_name:
+  type: str
+  help: GitHub repository name.
+  default: "{{ project_slug }}"
+  validator: >-
+    {% if not repository_name
+      or not repository_name | regex_search("^[A-Za-z0-9._-]+$") %}
+    Use letters, numbers, periods, underscores, or hyphens.
+    {% endif %}
+
+repository_url:
+  type: str
+  help: Canonical HTTPS URL of the source repository.
+  default: "https://github.com/{{ repository_owner }}/{{ repository_name }}"
+  validator: >-
+    {% if not repository_url | regex_search("^https://[^/]+/.+")
+      or " " in repository_url
+      or '"' in repository_url %}
+    Enter a complete HTTPS repository URL.
+    {% endif %}
+
+github_environment_reviewer_id:
+  type: str
+  help: >-
+    Optional numeric GitHub user or team ID required to approve PyPI
+    deployments. Leave blank to configure no reviewer.
+  default: ""
+  validator: >-
+    {% if github_environment_reviewer_id
+      and not github_environment_reviewer_id | regex_search("^[0-9]+$") %}
+    Enter a numeric GitHub user or team ID, or leave this blank.
+    {% endif %}

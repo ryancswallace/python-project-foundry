@@ -1,0 +1,36 @@
+# Distribution, import package, and public API names
+
+project_slug:
+  type: str
+  help: Distribution, repository, and container-image slug.
+  default: >-
+    {{ project_name
+       | lower
+       | regex_replace("[^a-z0-9]+", "-")
+       | regex_replace("(^-|-$)", "") }}
+  validator: >-
+    {% if not project_slug
+      or not project_slug | regex_search("^[a-z0-9]+(?:-[a-z0-9]+)*$") %}
+    Use lowercase letters, numbers, and single hyphens (for example, my-project).
+    {% endif %}
+
+package_name:
+  type: str
+  help: Importable Python package name under src/.
+  default: '{{ project_slug | replace("-", "_") }}'
+  validator: >-
+    {% if not package_name
+      or not package_name | regex_search("^[a-zA-Z_][a-zA-Z0-9_]*$") %}
+    Enter a valid Python identifier using letters, numbers, and underscores.
+    {% endif %}
+
+exception_class_name:
+  type: str
+  help: Public base exception class exported by the generated package.
+  default: >-
+    {{ project_slug | replace("-", " ") | title | replace(" ", "") }}Error
+  validator: >-
+    {% if not exception_class_name
+      or not exception_class_name | regex_search("^[A-Z][a-zA-Z0-9]*Error$") %}
+    Use a class name that starts with a capital letter and ends in Error.
+    {% endif %}

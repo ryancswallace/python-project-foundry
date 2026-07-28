@@ -11,3 +11,12 @@ _subdirectory: "template"
 
 # Use .jinja as the suffix for Jinja-templated files
 _templates_suffix: ".jinja"
+
+# Preserve final newlines and fail immediately if a template references a
+# question that has not been defined.
+_envops:
+  keep_trailing_newline: true
+  undefined: "jinja2.StrictUndefined"
+
+# Keep links as links if symlinks are added to the template in the future.
+_preserve_symlinks: true

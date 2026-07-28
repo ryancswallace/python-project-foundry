@@ -1,0 +1,20 @@
+# Quality gates and optional local setup
+
+coverage_fail_under:
+  type: int
+  help: Minimum line coverage percentage enforced by coverage.py.
+  default: 95
+  validator: >-
+    {% if coverage_fail_under < 0 or coverage_fail_under > 100 %}
+    Coverage must be an integer from 0 through 100.
+    {% endif %}
+
+initialize_git_repository:
+  type: bool
+  help: Initialize a Git repository and create the initial scaffold commit.
+  default: true
+
+run_setup_tasks:
+  type: bool
+  help: Install development dependencies and pre-commit hooks after rendering.
+  default: true

@@ -1,0 +1,32 @@
+# Maintainer and copyright details used in policy and license files
+
+author_name:
+  type: str
+  help: Primary author or maintainer name.
+  default: Acme Maintainers
+  validator: >-
+    {% if not author_name | trim %}
+    Author name cannot be empty.
+    {% elif '"' in author_name %}
+    Author name cannot contain double quotes.
+    {% endif %}
+
+author_email:
+  type: str
+  help: Public contact email for the primary author or maintainer.
+  default: maintainers@example.com
+  validator: >-
+    {% if not author_email | regex_search(
+      "^[^@ ]+@[^@ ]+[.][^@ ]+$"
+    ) or '"' in author_email %}
+    Enter a valid email address.
+    {% endif %}
+
+copyright_year:
+  type: int
+  help: Copyright year used in the generated license.
+  default: "{{ '%Y' | strftime }}"
+  validator: >-
+    {% if copyright_year < 1970 or copyright_year > 9999 %}
+    Enter a four-digit copyright year.
+    {% endif %}

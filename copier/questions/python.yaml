@@ -1,0 +1,42 @@
+# Supported Python versions
+
+python_min_version:
+  type: str
+  help: Oldest Python minor version supported by the package.
+  default: "3.11"
+  choices:
+    Python 3.11: "3.11"
+    Python 3.12: "3.12"
+    Python 3.13: "3.13"
+    Python 3.14: "3.14"
+
+python_default_version:
+  type: str
+  help: Python version used by default for local development and CI.
+  default: "3.14"
+  choices:
+    Python 3.11: "3.11"
+    Python 3.12: "3.12"
+    Python 3.13: "3.13"
+    Python 3.14: "3.14"
+  validator: >-
+    {% if python_default_version < python_min_version %}
+    The default Python version must be at least the minimum supported version.
+    {% endif %}
+
+python_max_version_exclusive:
+  type: str
+  help: Exclusive upper bound for the package's requires-python constraint.
+  default: "3.15"
+  choices:
+    Python 3.12: "3.12"
+    Python 3.13: "3.13"
+    Python 3.14: "3.14"
+    Python 3.15: "3.15"
+  validator: >-
+    {% set expected_upper_bound =
+      "3." ~ ((python_default_version.split(".")[1] | int) + 1) %}
+    {% if python_max_version_exclusive != expected_upper_bound %}
+    Choose the Python minor version immediately after the default version
+    ({{ expected_upper_bound }}).
+    {% endif %}

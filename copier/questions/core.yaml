@@ -1,10 +1,38 @@
-# Test - TODO: remove
+# Project identity and package metadata
 
 project_name:
   type: str
-  help: "Human-readable project name"
+  help: Human-readable project name, used in headings and documentation.
+  default: >-
+    {{ _folder_name
+       | replace("-", " ")
+       | replace("_", " ")
+       | title }}
+  validator: >-
+    {% if not project_name | trim %}
+    Project name cannot be empty.
+    {% elif '"' in project_name %}
+    Project name cannot contain double quotes.
+    {% endif %}
 
-run_setup_tasks:
-  type: bool
-  default: false
-  when: false
+project_description:
+  type: str
+  help: One-sentence description used in package metadata and documentation.
+  default: A modern Python package scaffold.
+  validator: >-
+    {% if not project_description | trim %}
+    Project description cannot be empty.
+    {% elif '"' in project_description %}
+    Project description cannot contain double quotes.
+    {% endif %}
+
+initial_version:
+  type: str
+  help: Initial package version in X.Y.Z form.
+  default: "0.1.0"
+  validator: >-
+    {% if not initial_version | regex_search(
+      '^(0|[1-9][0-9]*)[.](0|[1-9][0-9]*)[.](0|[1-9][0-9]*)$'
+    ) %}
+    Enter a stable semantic version such as 0.1.0.
+    {% endif %}

@@ -1,0 +1,12 @@
+# Documentation hosting
+
+documentation_url:
+  type: str
+  help: Public URL for the generated project documentation.
+  default: "https://{{ repository_owner }}.github.io/{{ repository_name }}/"
+  validator: >-
+    {% if not documentation_url | regex_search("^https://[^/]+(?:/.*)?$")
+      or " " in documentation_url
+      or '"' in documentation_url %}
+    Enter a complete HTTPS documentation URL.
+    {% endif %}

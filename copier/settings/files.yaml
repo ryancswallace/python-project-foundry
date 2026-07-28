@@ -4,5 +4,6 @@
 # Declared here explicitly for clarity.
 _exclude: []
 
-# Files to recreate on update if missing but never overwrite if present.
-_skip_if_exists: []  # TODO
+# Copier's update algorithm should manage every generated file. In particular,
+# policy, workflow, and lock files should continue to receive template updates.
+_skip_if_exists: []

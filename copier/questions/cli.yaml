@@ -1,0 +1,5 @@
+# Reserved for optional command-line application questions.
+#
+# The current scaffold is an importable library and does not render any
+# CLI-specific placeholders.
+{}
