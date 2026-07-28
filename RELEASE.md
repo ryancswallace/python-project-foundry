@@ -85,12 +85,15 @@ the publishing job receives PyPI credentials.
 
 The workflow:
 
-1. installs dependencies from the locked environment;
-2. runs linting, type checks, and tests;
-3. builds the wheel and source distribution once;
-4. validates both distributions with Twine;
-5. transfers those exact artifacts to an environment-protected job;
-6. publishes them through PyPI Trusted Publishing with digital attestations.
+1. installs pinned `uv` without relying on third-party GitHub Actions;
+2. installs dependencies from the locked environment;
+3. runs linting, type checks, and tests;
+4. builds the wheel and source distribution once;
+5. validates both distributions with Twine;
+6. transfers those exact artifacts and the verified `uv` executable to an
+   environment-protected job;
+7. publishes them with `uv publish --trusted-publishing always`, using PyPI
+   Trusted Publishing and digital attestations.
 
 PyPI versions are immutable. To correct a release, increment the version and
 publish a new tag; do not reuse or move an existing release tag.
