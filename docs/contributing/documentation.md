@@ -3,6 +3,14 @@
 Documentation source is Markdown under `docs/`. Site configuration and
 navigation live in `mkdocs.yml`.
 
+## Content pattern
+
+- Start with the command, decision, or outcome.
+- Prefer tables for repeated options and mappings.
+- Prefer numbered lists for sequences.
+- Keep one task or reference topic per page.
+- Link to a reference instead of repeating full option lists.
+
 ## Write and preview
 
 Start the development server:

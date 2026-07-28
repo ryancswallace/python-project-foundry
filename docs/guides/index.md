@@ -1,11 +1,11 @@
 # Guides
 
-Task-focused guides explain how to use Python Project Foundry in common
-workflows.
+| Guide | Use it to |
+| --- | --- |
+| [Configure a project](configure.md) | Choose names, Python support, repository metadata, and setup behavior |
+| [Develop a generated project](development.md) | Install tools, run checks, build docs, and test containers |
+| [Publish to GitHub](publish.md) | Create the repository, push `main`, and enable Pages |
+| [Automate generation](unattended.md) | Preview or scaffold with defaults and no prompts |
+| [Troubleshoot](troubleshooting.md) | Diagnose setup, uv, publish, Pages, type-check, and Docker failures |
 
-- [Generate without prompts](unattended.md) for automation and repeatable
-  experiments.
-- [Quickstart](../quickstart.md) for an interactive first project.
-
-More guides can be added to this directory as template update and migration
-workflows mature.
+For a first interactive run, start with the [Quickstart](../quickstart.md).

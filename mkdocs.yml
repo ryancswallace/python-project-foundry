@@ -33,8 +33,11 @@ theme:
     - content.action.edit
     - content.action.view
     - content.code.copy
+    - content.tabs.link
     - navigation.footer
     - navigation.indexes
+    - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.top
     - navigation.tracking
@@ -94,18 +97,27 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Quickstart: quickstart.md
+  - Get started:
+      - Quickstart: quickstart.md
+      - Configure a project: guides/configure.md
+      - Develop a generated project: guides/development.md
+      - Publish to GitHub: guides/publish.md
   - Guides:
       - Guides overview: guides/index.md
-      - Generate without prompts: guides/unattended.md
+      - Automate generation: guides/unattended.md
+      - Troubleshooting: guides/troubleshooting.md
   - Reference:
       - Reference overview: reference/index.md
       - Command line: reference/cli.md
+      - Questionnaire: reference/questionnaire.md
+      - Generated project: reference/generated-project.md
       - Python API:
           - Package: reference/api/index.md
           - CLI module: reference/api/cli.md
+          - Publishing module: reference/api/publishing.md
   - Explanation:
       - How it works: explanation/how-it-works.md
   - Contributing:
       - Development: contributing/development.md
+      - Template development: contributing/template.md
       - Documentation: contributing/documentation.md

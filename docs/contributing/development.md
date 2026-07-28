@@ -1,12 +1,16 @@
 # Development
 
-Clone the repository, then prepare the complete development environment:
+## Set up
+
+Clone the repository, then install the complete development environment:
 
 ```console
 make setup
 ```
 
-Run the full validation suite before submitting changes:
+## Validate
+
+Run the full suite before submitting changes:
 
 ```console
 make check
@@ -23,6 +27,19 @@ Useful focused commands include:
 | `make docs` | Build documentation strictly. |
 | `make docs-linkcheck` | Build documentation and crawl its links. |
 | `make serve-docs` | Preview documentation with live reload. |
+
+## Project layout
+
+| Path | Responsibility |
+| --- | --- |
+| `src/python_project_foundry/` | Published CLI and GitHub publishing code |
+| `copier.yaml` and `copier/` | Questionnaire and Copier lifecycle configuration |
+| `template/` | Generated repository content |
+| `tests/` | CLI, publishing, and rendered-template tests |
+| `docs/` | This documentation site |
+
+For questionnaire or generated-file changes, follow
+[Template development](template.md).
 
 See the repository's
 [contribution guide](https://github.com/ryancswallace/python-project-foundry/blob/main/CONTRIBUTING.md)
