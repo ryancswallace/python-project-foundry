@@ -5,7 +5,7 @@
 
 repository:
   description: "Python project template that follows proven patterns. Scaffolds libraries, CLIs, and web services."
-  homepage: "https://github.com/ryancswallace/python-project-foundry"
+  homepage: "https://ryancswallace.github.io/python-project-foundry/"
   topics: "copier, copier-template, project-generator, project-template, python, python-template, scaffolding, template"
   has_issues: true
   has_projects: false

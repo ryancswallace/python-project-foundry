@@ -5,7 +5,6 @@
 [![Python 3.11-3.14](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-3776AB?logo=python&logoColor=white)](https://github.com/ryancswallace/python-project-foundry/blob/main/pyproject.toml)
 [![Typed with basedpyright](https://img.shields.io/badge/types-basedpyright-2f6fdd)](https://github.com/DetachHead/basedpyright)
 [![Linted with Ruff](https://img.shields.io/badge/lint-Ruff-46a2f1)](https://docs.astral.sh/ruff/)
-[![Coverage gate: 90%](https://img.shields.io/badge/coverage%20gate-%E2%89%A590%25-2e7d32)](https://github.com/ryancswallace/python-project-foundry/blob/main/pyproject.toml)
 
 # Python Project Foundry
 
