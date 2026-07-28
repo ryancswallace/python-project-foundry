@@ -1,0 +1,21 @@
+### Post-copy/update tasks
+# Commands run in order, each in its own subprocess.
+# python-project-foundry supports POSIX (Linux/macOS) shells only.
+
+_tasks:
+  # Git initialization (copy only; POSIX only)
+  - command: "git init -b main"
+    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] }}"
+
+  - command: "git add -A"
+    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] }}"
+
+  - command: ["git", "commit", "-m", "chore: initial scaffold from python-project-foundry"]
+    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] }}"
+
+  # Optional extra setup tasks
+  - command: "make setup"
+    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] and run_setup_tasks | default(true) }}"
+
+  - command: "pre-commit install"
+    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] and run_setup_tasks | default(true) }}"

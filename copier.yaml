@@ -1,0 +1,148 @@
+### Root Copier configuration file.
+# See https://copier.readthedocs.io/en/v9.10.0/configuring/
+
+# Global copier settings
+---
+!include copier/settings/base.yaml
+---
+!include copier/settings/files.yaml
+---
+!include copier/settings/tasks.yaml
+---
+!include copier/settings/migrations.yaml
+---
+!include copier/settings/messages.yaml
+
+# Definitions of choices/defaults shared across templates
+---
+!include copier/shared/choices.yaml
+
+# Questions asked to the user (in order)
+---
+!include copier/questions/core.yaml
+---
+!include copier/questions/shape.yaml
+---
+!include copier/questions/python.yaml
+---
+!include copier/questions/tooling.yaml
+---
+!include copier/questions/cli.yaml
+---
+!include copier/questions/service.yaml
+---
+!include copier/questions/docs.yaml
+---
+!include copier/questions/ci.yaml
+---
+!include copier/questions/security.yaml
+
+
+# _min_copier_version: "9.4.0"
+# _subdirectory: template
+# _templates_suffix: .jinja
+# _answers_file: .copier-answers.yml
+
+# project_name:
+#   type: str
+#   help: Human-readable project name.
+#   default: "Sample Python Project"
+
+# project_slug:
+#   type: str
+#   help: Distribution, repository, and Docker image slug.
+#   default: "{{ project_name | lower | replace(' ', '-') | replace('_', '-') }}"
+
+# package_name:
+#   type: str
+#   help: Importable Python package name.
+#   default: "{{ project_slug | replace('-', '_') }}"
+
+# exception_class_name:
+#   type: str
+#   help: Base package exception class name.
+#   default: "{{ project_name | title | replace(' ', '') | replace('-', '') }}Error"
+
+# project_description:
+#   type: str
+#   help: Short package description.
+#   default: "A modern Python package scaffold."
+
+# author_name:
+#   type: str
+#   help: Primary author or maintainer name.
+#   default: "Acme Maintainers"
+
+# author_email:
+#   type: str
+#   help: Primary author or maintainer email.
+#   default: "maintainers@example.com"
+
+# repository_owner:
+#   type: str
+#   help: GitHub user or organization that owns the repository.
+#   default: "acme"
+
+# repository_name:
+#   type: str
+#   help: GitHub repository name.
+#   default: "{{ project_slug }}"
+
+# repository_url:
+#   type: str
+#   help: Canonical source repository URL.
+#   default: "https://github.com/{{ repository_owner }}/{{ repository_name }}"
+
+# documentation_url:
+#   type: str
+#   help: Public documentation URL.
+#   default: "https://{{ repository_owner }}.github.io/{{ repository_name }}/"
+
+# initial_version:
+#   type: str
+#   help: Initial package version.
+#   default: "0.1.0"
+
+# license:
+#   type: str
+#   help: SPDX license expression.
+#   default: "MIT"
+
+# copyright_year:
+#   type: str
+#   help: Copyright year for generated policy files.
+#   default: "2026"
+
+# python_min_version:
+#   type: str
+#   help: Minimum supported Python version.
+#   default: "3.11"
+
+# python_default_version:
+#   type: str
+#   help: Default local and CI Python version.
+#   default: "3.14"
+
+# python_max_version_exclusive:
+#   type: str
+#   help: Exclusive upper Python version bound.
+#   default: "3.15"
+
+# coverage_fail_under:
+#   type: int
+#   help: Minimum line coverage percentage enforced by coverage.py.
+#   default: 95
+
+# github_environment_reviewer_id:
+#   type: str
+#   help: Optional GitHub user/team id for the PyPI deployment environment.
+#   default: ""
+
+# _message_after_copy: |
+#   Rendered {{ project_name }}.
+
+#   Next steps:
+#     cd {{ _copier_conf.dst_path }}
+#     uv lock
+#     npm install --package-lock-only
+#     make check

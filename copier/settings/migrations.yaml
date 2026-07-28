@@ -1,0 +1,15 @@
+### Update-time migrations for `copier update`
+
+_migrations:
+  # Guard for breaking updates on next major version release
+  # If an update crosses 1.0.0, stop and ask for manual steps.
+  # - version: "1.0.0"  # Uncomment and complete message in preparation for 1.0 major release
+  #   before:
+  #     - >
+  #       printf "\n⚠️  Backwards-incompatible update to python-project-foundry major version detected.
+  #       From: $VERSION_PEP440_FROM
+  #       To: $VERSION_PEP440_TO
+
+  #       This is a breaking upgrade. Please read the migration guide in the template
+  #       repository and apply required manual changes before re-running 'copier update'.\n" 1>&2
+  #     - "exit 1"

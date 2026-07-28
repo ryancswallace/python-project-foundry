@@ -1,0 +1,49 @@
+### User-facing messages shown before/after copy and update
+
+_message_before_copy: |
+
+  Scaffolding your new project with {{ '\u001b[1m' }}python-project-foundry{{ '\u001b[0m' }}!
+
+  Steps:
+    → Answer questions about your project
+    → We'll scaffold your project
+    → (optional) We'll run setup tasks
+
+  👉 Abort anytime with Ctrl+C
+
+_message_after_copy: |
+
+  ✅  Scaffold complete.
+
+  If you skipped the setup tasks, see "next steps" in the docs for suggested project setup.
+
+  Quick links
+    repo: https://github.com/ryancswallace/python-project-foundry
+    docs: https://ryancswallace.github.io/python-project-foundry/
+
+  Thanks for using {{ '\u001b[1m' }}✨ python-project-foundry ✨{{ '\u001b[0m' }}  Have fun building! 🎉
+
+_message_before_update: |
+
+  Updating your existing project with {{ '\u001b[1m' }}python-project-foundry{{ '\u001b[0m' }}!
+
+  Steps:
+    → We'll apply template changes and run any defined migrations
+    → You may be asked to resolve conflicts if both you and the template changed the same lines
+
+  👉 Abort anytime with Ctrl+C
+
+_message_after_update: |
+
+  ✅  Update complete.
+
+  Next steps:
+    → Review the diff and resolve any inline conflicts
+    → Re-run any quality checks (e.g., `make test`)
+    → Commit your changes when satisfied
+
+  Quick links
+    repo: https://github.com/ryancswallace/python-project-foundry
+    docs: https://ryancswallace.github.io/python-project-foundry/
+
+  Thanks for using {{ '\u001b[1m' }}✨ python-project-foundry ✨\u001b[0m  Have fun building! 🎉

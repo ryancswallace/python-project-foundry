@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# Bootstrap and run Python Project Foundry from a source checkout.
+set -eu
+
+UV_VERSION="0.11.32"
+UV_INSTALL_DIR="${UV_INSTALL_DIR:-$HOME/.local/bin}"
+UV_INSTALL_URL="${UV_INSTALL_URL:-https://astral.sh/uv/$UV_VERSION/install.sh}"
+PPF_GIT_SOURCE="git+https://github.com/ryancswallace/python-project-foundry"
+
+script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+
+uv_is_compatible() {
+    candidate_version=$("$1" --version 2>/dev/null | awk '{ print $2 }') || return 1
+    echo "$candidate_version" | awk -F. '{ exit !($1 == 0 && $2 == 11 && $3 + 0 >= 8) }'
+}
+
+if [ -n "${PPF_SOURCE:-}" ]; then
+    ppf_source="$PPF_SOURCE"
+elif [ -f "$script_dir/pyproject.toml" ] && [ -f "$script_dir/src/python_project_foundry/cli.py" ]; then
+    ppf_source="$script_dir"
+    local_checkout=true
+else
+    # Support piping this launcher directly from GitHub without cloning first.
+    ppf_source="$PPF_GIT_SOURCE"
+fi
+
+if [ -n "${UV:-}" ]; then
+    uv_bin="$UV"
+elif command -v uv >/dev/null 2>&1 && uv_is_compatible "$(command -v uv)"; then
+    uv_bin=$(command -v uv)
+elif [ -x "$UV_INSTALL_DIR/uv" ] && uv_is_compatible "$UV_INSTALL_DIR/uv"; then
+    uv_bin="$UV_INSTALL_DIR/uv"
+else
+    echo "Compatible uv not found; installing uv $UV_VERSION to $UV_INSTALL_DIR."
+    if command -v curl >/dev/null 2>&1; then
+        curl -LsSf "$UV_INSTALL_URL" | env UV_INSTALL_DIR="$UV_INSTALL_DIR" UV_NO_MODIFY_PATH=1 sh
+    elif command -v wget >/dev/null 2>&1; then
+        wget -qO- "$UV_INSTALL_URL" | env UV_INSTALL_DIR="$UV_INSTALL_DIR" UV_NO_MODIFY_PATH=1 sh
+    else
+        echo "Cannot install uv: curl or wget is required." >&2
+        exit 1
+    fi
+    uv_bin="$UV_INSTALL_DIR/uv"
+fi
+
+if [ "${local_checkout:-false}" = true ]; then
+    PPF_ENVIRONMENT="${PPF_ENVIRONMENT:-$HOME/.cache/python-project-foundry/venv}"
+    export UV_PROJECT_ENVIRONMENT="$PPF_ENVIRONMENT"
+    exec "$uv_bin" run --project "$ppf_source" --no-dev ppf "$@"
+fi
+
+exec "$uv_bin" tool run --from "$ppf_source" ppf "$@"

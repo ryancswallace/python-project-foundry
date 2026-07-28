@@ -1,0 +1,155 @@
+[project]
+name = "python-project-foundry"
+version = "0.1.0"
+description = "Python project template that follows proven patterns. Scaffolds libraries, CLIs, and web services."
+readme = "README.md"
+requires-python = ">=3.11,<3.15"
+license = "MIT"
+authors = [
+    { name = "Ryan Wallace", email = "ryancswallace@gmail.com" },
+]
+maintainers = [
+    { name = "Ryan Wallace", email = "ryancswallace@gmail.com" },
+]
+keywords = [
+    "copier",
+    "copier-template",
+    "project-generator",
+    "project-template",
+    "python",
+    "python-template",
+    "scaffolding",
+    "template"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development",
+    "Topic :: Utilities"
+]
+dependencies = [
+  "copier~=9.10",
+]
+
+[project.scripts]
+ppf = "python_project_foundry.cli:main"
+python-project-foundry = "python_project_foundry.cli:main"
+
+[dependency-groups]
+test = [
+    "hypothesis>=6.155.7",
+    "pytest-cov>=7.1.0",
+    "textual>=6.12,<7",
+]
+lint = [
+    "pre-commit>=4.6.0",
+    "ruff>=0.15.18",
+]
+type = [
+    "basedpyright>=1.39.8",
+]
+docs = [
+    "linkchecker>=10.6.0",
+    "mkdocs-gen-files>=0.5.0",
+    "mkdocs-material>=9,<10",
+    "mkdocs>=1.6.1",
+    "mkdocstrings[python]>=1.0.4",
+]
+security = [
+    "bandit[toml]>=1.9.4",
+    "deptry>=0.25.1",
+    "detect-secrets>=1.5.0",
+    "pip-audit>=2.10.1",
+    "zizmor>=1.26.1",
+]
+release = [
+    "build>=1.5.0",
+    "cyclonedx-bom>=7.3.0",
+    "twine>=6.2.0",
+]
+automation = [
+    "nox>=2026.4.10",
+]
+dev = [
+    { include-group = "automation" },
+    { include-group = "docs" },
+    { include-group = "lint" },
+    { include-group = "release" },
+    { include-group = "security" },
+    { include-group = "test" },
+    { include-group = "type" },
+]
+
+[project.urls]
+Homepage = "https://github.com/ryancswallace/python-project-foundry"
+Changelog = "https://github.com/ryancswallace/python-project-foundry/blob/main/CHANGELOG.md"
+Documentation = "https://ryancswallace.github.io/python-project-foundry/"
+Issues = "https://github.com/ryancswallace/python-project-foundry/issues"
+Source = "https://github.com/ryancswallace/python-project-foundry"
+
+[tool.uv]
+link-mode = "copy"
+required-version = ">=0.11.8,<0.12"
+
+[build-system]
+requires = ["hatchling>=1.30.1"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/CHANGELOG.md",
+    "/CITATION.cff",
+    "/CODE_OF_CONDUCT.md",
+    "/CONTRIBUTING.md",
+    "/docs",
+    "/LICENSE",
+    "/mkdocs.yml",
+    "/copier",
+    "/copier.yaml",
+    "/README.md",
+    "/RELEASE.md",
+    "/SECURITY.md",
+    "/src",
+    "/template",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/python_project_foundry"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"copier" = "python_project_foundry/_template/copier"
+"copier.yaml" = "python_project_foundry/_template/copier.yaml"
+"template" = "python_project_foundry/_template/template"
+
+[tool.ruff]
+line-length = 120
+src = ["src", "tests", "examples", "scripts", "docs/_scripts"]
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "PIE", "PT", "RET", "RUF", "SIM", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["benchmatrix"]
+
+[tool.ruff.format]
+line-ending = "lf"
+
+[tool.basedpyright]
+include = ["src"]
+exclude = [".venv", "build", "dist"]
+pythonVersion = "3.11"
+typeCheckingMode = "standard"
+
+[tool.deptry]
+ignore_notebooks = true
+known_first_party = ["python_project_foundry"]

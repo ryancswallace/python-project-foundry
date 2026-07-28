@@ -1,0 +1,134 @@
+# TODO
+
+# site_name: patiencepilot
+# site_description: A Solitaire solver in Python
+# site_author: Ryan Wallace
+# site_url: https://ryancswallace.github.io/patiencepilot/
+# repo_name: ryancswallace/patiencepilot
+# repo_url: https://github.com/ryancswallace/patiencepilot
+# edit_uri: blob/main/docs/
+
+# docs_dir: docs
+# site_dir: site
+# strict: true
+
+# watch:
+#   - src/patiencepilot
+
+# validation:
+#   nav:
+#     omitted_files: warn
+#     not_found: warn
+#     absolute_links: warn
+#   links:
+#     not_found: warn
+#     absolute_links: warn
+#     unrecognized_links: warn
+#     anchors: warn
+
+# extra_css:
+#   - stylesheets/navigation.css
+
+# theme:
+#   name: material
+#   locale: en
+#   font: false
+#   features:
+#     - content.action.edit
+#     - content.action.view
+#     - content.code.copy
+#     - navigation.footer
+#     - navigation.indexes
+#     - navigation.sections
+#     - navigation.top
+#     - navigation.tracking
+#     - search.highlight
+#     - search.suggest
+#     - toc.follow
+#   palette:
+#     - media: "(prefers-color-scheme: light)"
+#       scheme: default
+#       primary: teal
+#       accent: amber
+#       toggle:
+#         icon: material/weather-night
+#         name: Switch to dark mode
+#     - media: "(prefers-color-scheme: dark)"
+#       scheme: slate
+#       primary: teal
+#       accent: amber
+#       toggle:
+#         icon: material/weather-sunny
+#         name: Switch to light mode
+
+# exclude_docs: |
+#   _scripts/
+
+# plugins:
+#   - search
+#   - gen-files:
+#       scripts:
+#         - docs/_scripts/gen_api_reference.py
+#   - mkdocstrings:
+#       handlers:
+#         python:
+#           paths:
+#             - src
+#           options:
+#             docstring_style: google
+#             members_order: source
+#             separate_signature: true
+#             show_root_heading: true
+#             show_signature_annotations: true
+#             show_source: true
+
+# markdown_extensions:
+#   - admonition
+#   - toc:
+#       permalink: true
+#   - pymdownx.highlight
+#   - pymdownx.superfences
+
+# nav:
+#   - Home: index.md
+#   - Project:
+#       - Project overview: project/index.md
+#       - Development: project/development.md
+#       - Contributing: project/contributing.md
+#       - Changelog: project/changelog.md
+#   - Reference:
+#       - Reference overview: reference/index.md
+#       - Command line: reference/cli.md
+#       - Terminal user interface: reference/tui.md
+#       - API:
+#           - Package: reference/api/index.md
+#           - CLI entry point: reference/api/cli.md
+#           - TUI entry point: reference/api/tui.md
+#           - Application service: reference/api/app.md
+#           - Cards: reference/api/cards.md
+#           - State: reference/api/state.md
+#           - Player view: reference/api/view.md
+#           - Moves: reference/api/moves.md
+#           - Notation: reference/api/notation.md
+#           - Simulation: reference/api/simulation.md
+#           - Solvers:
+#               - Solvers package: reference/api/solvers/index.md
+#               - Solver base: reference/api/solvers/base.md
+#               - Dummy solver: reference/api/solvers/dummy.md
+#               - Beam search solver: reference/api/solvers/beam.md
+#               - Heuristic solver: reference/api/solvers/heuristic.md
+#               - Solver registry: reference/api/solvers/registry.md
+#           - Engine: reference/api/engine.md
+#           - Exceptions: reference/api/exceptions.md
+#           - Game: reference/api/game.md
+#           - UI:
+#               - UI package: reference/api/ui/index.md
+#               - Command line UI: reference/api/ui/cli.md
+#               - Terminal UI: reference/api/ui/tui.md
+#           - Variants:
+#               - Variants package: reference/api/variants/index.md
+#               - Variant base: reference/api/variants/base.md
+#               - Variant registry: reference/api/variants/registry.md
+#               - Klondike: reference/api/variants/klondike.md
+#       - Compatibility: reference/compatibility.md
+#       - Configuration and automation: reference/configuration.md

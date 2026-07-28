@@ -1,0 +1,128 @@
+# Python bytecode, caches, and compiled extensions
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Python tooling caches
+.basedpyright/
+.basedpyright_cache/
+.cache/
+.hypothesis/
+.mypy_cache/
+.pyre/
+.pyright/
+.pytest_cache/
+.pytype/
+.ruff_cache/
+.tox/
+.nox/
+.pre-commit-cache/
+.ipynb_checkpoints/
+
+# Virtual environments and local Python installations
+.venv/
+venv/
+env/
+ENV/
+venv.bak/
+env.bak/
+__pypackages__/
+
+# Build, packaging, and release artifacts
+build/
+dist/
+wheelhouse/
+pip-wheel-metadata/
+*.egg
+*.egg-info/
+.eggs/
+MANIFEST
+
+# Tests, coverage, and reports
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+*.py,cover
+htmlcov/
+reports/
+test-results/
+
+# Documentation build output
+public/
+site/
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Node.js and frontend tooling
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Bundler and Ruby artifacts used by documentation tooling
+.bundle/
+vendor/
+
+# Environment files and local secrets
+.env
+.env.*
+*.env
+*.env.*
+!.env.example
+!*.env.example
+
+# Local development work and notes
+dev/
+experiments/
+TODO.md
+NOTES.md
+
+# Editor and IDE files
+.idea/
+.fleet/
+.history/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Vim files
+.netrwhist
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]*.un~
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# OS-generated files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Logs, temporary files, and backups
+*.log
+*.bak
+*.orig
+*.rej
+*.swp
+*.tmp
+*~
+tmp/
+temp/

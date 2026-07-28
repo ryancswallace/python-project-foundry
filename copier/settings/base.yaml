@@ -1,0 +1,13 @@
+### Core Copier config
+
+# Require Copier v9 or newer
+_min_copier_version: "9.10.0"
+
+# Use a custom answers file name at the project root
+_answers_file: ".python-project-foundry.answers.yaml"
+
+# Only render from the template/ subtree
+_subdirectory: "template"
+
+# Use .jinja as the suffix for Jinja-templated files
+_templates_suffix: ".jinja"

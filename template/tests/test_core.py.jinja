@@ -1,0 +1,21 @@
+"""Tests for core package behavior."""
+
+import pytest
+
+from {{ package_name }} import {{ exception_class_name }}, greet
+
+
+def test_greet_uses_default_name() -> None:
+    """The default greeting is stable."""
+    assert greet() == "Hello, world."
+
+
+def test_greet_strips_names() -> None:
+    """Names are stripped before rendering."""
+    assert greet("  Python  ") == "Hello, Python."
+
+
+def test_greet_rejects_blank_names() -> None:
+    """Blank names are rejected."""
+    with pytest.raises({{ exception_class_name }}, match="name must not be blank"):
+        _ = greet(" ")

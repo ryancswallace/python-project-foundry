@@ -1,0 +1,10 @@
+# Test - TODO: remove
+
+project_name:
+  type: str
+  help: "Human-readable project name"
+
+run_setup_tasks:
+  type: bool
+  default: false
+  when: false

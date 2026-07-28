@@ -1,0 +1,21 @@
+"""Tests for the public package API."""
+
+import {{ package_name }}
+
+
+def test_public_exports_are_available() -> None:
+    """The package exports its documented public objects."""
+    expected_exports = {
+        "{{ exception_class_name }}",
+        "__version__",
+        "greet",
+    }
+
+    assert set({{ package_name }}.__all__) == expected_exports
+    for name in {{ package_name }}.__all__:
+        assert hasattr({{ package_name }}, name)
+
+
+def test_version_is_available() -> None:
+    """A version string is always exposed."""
+    assert {{ package_name }}.__version__

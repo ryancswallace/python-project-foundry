@@ -1,0 +1,63 @@
+# Repository settings-as-code for the GitHub Settings app.
+# The app applies this file after it reaches the default branch. Review changes
+# carefully: anyone who can modify the default-branch copy can change settings
+# that would otherwise require repository administration access.
+
+repository:
+  description: "Python project template that follows proven patterns. Scaffolds libraries, CLIs, and web services."
+  homepage: "https://github.com/ryancswallace/python-project-foundry"
+  topics: "copier, copier-template, project-generator, project-template, python, python-template, scaffolding, template"
+  has_issues: true
+  has_projects: false
+  has_wiki: false
+  has_discussions: false
+  default_branch: "main"
+
+  # Conventional Commit pull request titles become the commits evaluated by
+  # semantic-release. Keeping only squash merges makes that invariant clear.
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+  allow_auto_merge: true
+  allow_update_branch: true
+  squash_merge_commit_title: PR_TITLE
+  squash_merge_commit_message: PR_BODY
+  delete_branch_on_merge: true
+
+  enable_automated_security_fixes: true
+  enable_vulnerability_alerts: true
+
+branches:
+  - name: "main"
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        require_last_push_approval: true
+
+      # Keep a break-glass path for the sole maintainer. Normal pull requests
+      # remain subject to the review and check requirements above.
+      enforce_admins: false
+      required_linear_history: true
+      allow_force_pushes: false
+      allow_deletions: false
+      required_conversation_resolution: true
+
+      # Restrictions must be null for this user-owned repository and are a
+      # required top-level property in the Settings app branch schema.
+      restrictions: null
+
+environments:
+  - name: "github-pages"
+    deployment_branch_policy:
+      custom_branches:
+        - main
+  - name: "pypi"
+    reviewers:
+      - id: 20177051  # gh api users/ryancswallace --jq .id
+        type: "User"
+    deployment_branch_policy:
+      custom_branches:
+        - name: v*
+          type: tag

@@ -1,0 +1,21 @@
+"""Core package behavior."""
+
+from {{ package_name }}.exceptions import {{ exception_class_name }}
+
+
+def greet(name: str = "world") -> str:
+    """Return a friendly greeting.
+
+    Args:
+        name: Name to include in the greeting.
+
+    Returns:
+        A greeting for `name`.
+
+    Raises:
+        {{ exception_class_name }}: If `name` is blank.
+    """
+    cleaned = name.strip()
+    if not cleaned:
+        raise {{ exception_class_name }}("name must not be blank")
+    return f"Hello, {cleaned}."
