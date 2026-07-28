@@ -4,6 +4,12 @@ MAKEFLAGS += --no-print-directory
 
 export PATH := $(HOME)/.local/bin:$(HOME)/.cargo/bin:$(PATH)
 
+# Keep uv operations isolated to this repository even when the parent shell
+# exports UV_PROJECT_ENVIRONMENT for another project. A Make command-line
+# assignment can still override this value when needed.
+UV_PROJECT_ENVIRONMENT := .venv
+export UV_PROJECT_ENVIRONMENT
+
 PROJECT_SLUG ?= {{ project_slug }}
 PACKAGE_NAME ?= {{ package_name }}
 DIST_FILE_STEM ?= {{ project_slug | replace("-", "_") }}

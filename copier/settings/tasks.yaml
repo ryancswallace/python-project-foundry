@@ -5,17 +5,45 @@
 _tasks:
   # Git initialization (copy only; POSIX only)
   - command: "git init -b main"
-    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] }}"
+    when: >-
+      {{ _copier_operation == 'copy'
+         and _copier_conf.os in ['linux', 'macos']
+         and initialize_git_repository }}
 
   - command: "git add -A"
-    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] }}"
+    when: >-
+      {{ _copier_operation == 'copy'
+         and _copier_conf.os in ['linux', 'macos']
+         and initialize_git_repository }}
 
-  - command: ["git", "commit", "-m", "chore: initial scaffold from python-project-foundry"]
-    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] }}"
+  - command:
+      - "git"
+      - "-c"
+      - "user.name={{ author_name }}"
+      - "-c"
+      - "user.email={{ author_email }}"
+      - "commit"
+      - "-m"
+      - "chore: initial scaffold from python-project-foundry"
+    when: >-
+      {{ _copier_operation == 'copy'
+         and _copier_conf.os in ['linux', 'macos']
+         and initialize_git_repository }}
 
-  # Optional extra setup tasks
-  - command: "make setup"
-    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] and run_setup_tasks | default(true) }}"
+  # Install development dependencies and Git hooks when a repository was
+  # initialized. hooks-install depends on both install and npm-install.
+  - command: "make hooks-install"
+    when: >-
+      {{ _copier_operation == 'copy'
+         and _copier_conf.os in ['linux', 'macos']
+         and initialize_git_repository
+         and run_setup_tasks }}
 
-  - command: "pre-commit install"
-    when: "{{ _copier_operation == 'copy' and _copier_conf.os in ['linux','macos'] and run_setup_tasks | default(true) }}"
+  # Without a Git repository, install the development dependencies but skip
+  # hook installation.
+  - command: "make install npm-install"
+    when: >-
+      {{ _copier_operation == 'copy'
+         and _copier_conf.os in ['linux', 'macos']
+         and not initialize_git_repository
+         and run_setup_tasks }}
