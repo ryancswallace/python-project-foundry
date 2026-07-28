@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 import sys
-from collections.abc import Sequence
+from collections.abc import Iterator, Sequence
+from contextlib import contextmanager
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import copier
+
+from python_project_foundry.publishing import PublishError, publish_project
 
 
 def _template_path() -> Path:
@@ -23,6 +28,28 @@ def _template_path() -> Path:
 
     msg = "The Python Project Foundry template could not be found."
     raise FileNotFoundError(msg)
+
+
+@contextmanager
+def _template_source() -> Iterator[Path]:
+    """Yield a Copier source containing the current template files.
+
+    Copier treats any local Git repository as a versioned template and renders
+    its committed revision. For editable installs, snapshot the template inputs
+    without ``.git`` so uncommitted questionnaire and template changes are
+    available during local development.
+    """
+    source = _template_path()
+    if not (source / ".git").exists():
+        yield source
+        return
+
+    with TemporaryDirectory(prefix="python-project-foundry-") as temporary_directory:
+        snapshot = Path(temporary_directory)
+        shutil.copy2(source / "copier.yaml", snapshot)
+        shutil.copytree(source / "copier", snapshot / "copier")
+        shutil.copytree(source / "template", snapshot / "template")
+        yield snapshot
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -58,27 +85,74 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Render the project without running template tasks.",
     )
 
+    publish_parser = subparsers.add_parser(
+        "publish",
+        help="Explicitly create and push a generated project to GitHub.",
+    )
+    publish_parser.add_argument(
+        "project",
+        type=Path,
+        nargs="?",
+        default=Path("."),
+        help="Generated project directory (default: current directory).",
+    )
+    publish_parser.add_argument(
+        "--visibility",
+        required=True,
+        choices=("private", "public", "internal"),
+        help="GitHub repository visibility; must be selected explicitly.",
+    )
+    publish_parser.add_argument(
+        "--remote",
+        default="origin",
+        help="Git remote name to create (default: origin).",
+    )
+    publish_parser.add_argument(
+        "--skip-pages",
+        action="store_true",
+        help="Create and push the repository without enabling GitHub Pages.",
+    )
+    publish_parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Run local preflight checks and print external commands without executing them.",
+    )
+
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the Python Project Foundry command-line interface."""
     arguments = list(sys.argv[1:] if argv is None else argv)
-    if arguments and arguments[0] not in {"template", "-h", "--help"}:
+    if arguments and arguments[0] not in {"template", "publish", "-h", "--help"}:
         arguments.insert(0, "template")
 
     args = _build_parser().parse_args(arguments)
 
     if args.command == "template":
-        # Copier exports run_copy dynamically via __getattr__; BasedPyright cannot resolve it.
-        copier.run_copy(  # pyright: ignore[reportAttributeAccessIssue]
-            src_path=str(_template_path()),
-            dst_path=args.destination,
-            defaults=args.defaults,
-            overwrite=args.overwrite,
-            pretend=args.pretend,
-            skip_tasks=args.skip_tasks,
-            unsafe=True,  # Run tasks
-        )
+        with _template_source() as template_source:
+            # Copier exports run_copy dynamically via __getattr__; BasedPyright cannot resolve it.
+            copier.run_copy(  # pyright: ignore[reportAttributeAccessIssue]
+                src_path=str(template_source),
+                dst_path=args.destination,
+                defaults=args.defaults,
+                overwrite=args.overwrite,
+                pretend=args.pretend,
+                skip_tasks=args.skip_tasks,
+                unsafe=True,  # Run tasks
+            )
+
+    if args.command == "publish":
+        try:
+            publish_project(
+                args.project,
+                visibility=args.visibility,
+                remote=args.remote,
+                configure_pages=not args.skip_pages,
+                dry_run=args.dry_run,
+            )
+        except PublishError as error:
+            print(f"error: {error}", file=sys.stderr)
+            return 2
 
     return 0

@@ -13,13 +13,18 @@ _message_before_copy: |
 
 _message_after_copy: |
 
-  ✅  Scaffold complete.
+  ✅  {{ project_name }} is ready in {{ _copier_conf.dst_path }}.
 
-  If you skipped the setup tasks, see "next steps" in the docs for suggested project setup.
+  Next steps
+    → cd {{ _copier_conf.dst_path }}
+    → make check
 
-  Quick links
-    repo: https://github.com/ryancswallace/python-project-foundry
-    docs: https://ryancswallace.github.io/python-project-foundry/
+  Configured destinations (available after publishing)
+    repository: {{ repository_url }}
+    documentation: {{ documentation_url }}
+
+  Publish when ready
+    uvx python-project-foundry publish --visibility <private|public|internal>
 
   Thanks for using {{ '\u001b[1m' }}✨ python-project-foundry ✨{{ '\u001b[0m' }}  Have fun building! 🎉
 
@@ -42,8 +47,8 @@ _message_after_update: |
     → Re-run any quality checks (e.g., `make test`)
     → Commit your changes when satisfied
 
-  Quick links
-    repo: https://github.com/ryancswallace/python-project-foundry
-    docs: https://ryancswallace.github.io/python-project-foundry/
+  Configured destinations
+    repository: {{ repository_url }}
+    documentation: {{ documentation_url }}
 
-  Thanks for using {{ '\u001b[1m' }}✨ python-project-foundry ✨\u001b[0m  Have fun building! 🎉
+  Thanks for using {{ '\u001b[1m' }}✨ python-project-foundry ✨{{ '\u001b[0m' }}  Have fun building! 🎉
