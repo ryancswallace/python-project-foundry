@@ -49,8 +49,10 @@ FROM builder AS test
 
 COPY . .
 
+# This image only runs pytest. Keep type-checking and other development tools
+# out of it so their transitive runtimes do not expand the image attack surface.
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked \
+    uv sync --locked --no-dev --group test \
     && chown -R app:app /app
 
 USER app
