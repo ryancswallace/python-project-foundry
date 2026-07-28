@@ -28,6 +28,7 @@
         "debugpy",
         "deptry",
         "detachhead",
+        "elif",
         "filterwarnings",
         "isort",
         "linkchecker",

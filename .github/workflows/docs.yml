@@ -1,0 +1,99 @@
+name: Documentation
+
+on:
+  pull_request:
+    paths:
+      - .github/workflows/docs.yml
+      - copier/**
+      - copier.yaml
+      - docs/**
+      - Makefile
+      - mkdocs.yml
+      - pyproject.toml
+      - README.md
+      - src/**
+      - template/**
+      - uv.lock
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/docs.yml
+      - copier/**
+      - copier.yaml
+      - docs/**
+      - Makefile
+      - mkdocs.yml
+      - pyproject.toml
+      - README.md
+      - src/**
+      - template/**
+      - uv.lock
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and test documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        shell: bash
+        run: |
+          curl -LsSf https://astral.sh/uv/0.11.33/install.sh \
+            | env UV_UNMANAGED_INSTALL="$RUNNER_TEMP/uv-bin" sh
+          echo "$RUNNER_TEMP/uv-bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/uv-bin/uv" --version
+
+      - name: Install documentation dependencies
+        run: uv sync --locked --group docs
+
+      - name: Build documentation and check links
+        run: make docs-linkcheck
+
+      - name: Upload link-check report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: docs-linkcheck-report
+          path: reports/linkchecker.xml
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Upload GitHub Pages artifact
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site/
+
+  deploy:
+    name: Deploy documentation
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0

@@ -29,6 +29,8 @@ PPF_ENVIRONMENT ?= $(HOME)/.cache/python-project-foundry/venv
 PPF_ARGS ?=
 PYTEST_ARGS ?=
 RUFF_ARGS ?= .
+MKDOCS_ARGS ?=
+LINKCHECK_REPORT ?= reports/linkchecker.xml
 
 ### Make a standalone uv installation available to this Make process
 export PATH := $(UV_INSTALL_DIR):$(HOME)/.cargo/bin:$(PATH)
@@ -41,6 +43,7 @@ export UV_PROJECT_ENVIRONMENT ?= .venv
 .PHONY: help
 .PHONY: bootstrap setup template
 .PHONY: format fmt lint typecheck test test-cov check all
+.PHONY: docs docs-linkcheck serve-docs
 .PHONY: precommit build
 .PHONY: lock update clean
 
@@ -109,10 +112,28 @@ test-cov: bootstrap
 	$(UV) run pytest --cov=python_project_foundry --cov-report=term-missing $(PYTEST_ARGS)
 
 check:  #doc# Run lint, type, and test checks
-check: lint typecheck test
+check: lint typecheck test docs
 
 all:  #doc# Alias for check
 all: check
+
+### Documentation targets
+
+docs:  #doc# Build the documentation site in strict mode
+docs: bootstrap
+	DISABLE_MKDOCS_2_WARNING=true NO_MKDOCS_2_WARNING=1 \
+	  $(UV) run --group docs mkdocs build --strict $(MKDOCS_ARGS)
+
+docs-linkcheck:  #doc# Build documentation and check its links
+docs-linkcheck: docs
+	@mkdir -p "$$(dirname "$(LINKCHECK_REPORT)")"
+	$(UV) run --group docs linkchecker --no-status --no-warnings \
+	  --ignore-url 'sitemap\.xml\.gz$$' -F xml/utf-8/"$(LINKCHECK_REPORT)" site/index.html
+
+serve-docs:  #doc# Preview documentation with live reload
+serve-docs: bootstrap
+	DISABLE_MKDOCS_2_WARNING=true NO_MKDOCS_2_WARNING=1 \
+	  $(UV) run --group docs mkdocs serve --strict $(MKDOCS_ARGS)
 
 ### Convenience targets
 
