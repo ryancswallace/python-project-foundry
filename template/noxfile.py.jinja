@@ -4,7 +4,7 @@ from pathlib import Path
 
 import nox
 
-SUPPORTED_PYTHONS = ("{{ python_min_version }}", "3.12", "3.13", "{{ python_default_version }}")
+SUPPORTED_PYTHONS = ({% for minor in range(python_min_version.split(".")[1] | int, (python_default_version.split(".")[1] | int) + 1) %}"3.{{ minor }}"{% if not loop.last %}, {% elif loop.length == 1 %},{% endif %}{% endfor %})
 DEFAULT_PYTHON = "{{ python_default_version }}"
 PACKAGE_NAME = "{{ package_name }}"
 PROJECT_SLUG = "{{ project_slug }}"

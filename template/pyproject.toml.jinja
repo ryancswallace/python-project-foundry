@@ -17,13 +17,19 @@ keywords = [
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
+{% if license == "MIT" %}
     "License :: OSI Approved :: MIT License",
+{% elif license == "BSD-3-Clause" %}
+    "License :: OSI Approved :: BSD License",
+{% endif %}
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: {{ python_min_version }}",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: {{ python_default_version }}",
+{% for minor in range(
+  python_min_version.split(".")[1] | int,
+  (python_default_version.split(".")[1] | int) + 1
+) %}
+    "Programming Language :: Python :: 3.{{ minor }}",
+{% endfor %}
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Typing :: Typed",

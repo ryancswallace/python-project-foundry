@@ -1,3 +1,4 @@
+{% raw %}
 name: CI
 
 on:
@@ -88,19 +89,20 @@ jobs:
       fail-fast: false
       matrix:
         include:
+{% endraw %}
+{% for minor in range(
+  python_min_version.split(".")[1] | int,
+  (python_default_version.split(".")[1] | int) + 1
+) %}
           - os: ubuntu-24.04
-            python-version: "3.11"
-          - os: ubuntu-24.04
-            python-version: "3.12"
-          - os: ubuntu-24.04
-            python-version: "3.13"
-          - os: ubuntu-24.04
-            python-version: "3.14"
+            python-version: "3.{{ minor }}"
+{% endfor %}
           - os: macos-15
-            python-version: "3.14"
+            python-version: "{{ python_default_version }}"
           - os: windows-2025
-            python-version: "3.14"
+            python-version: "{{ python_default_version }}"
 
+{% raw %}
     env:
       UV_PYTHON: ${{ matrix.python-version }}
 
@@ -159,8 +161,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
+{% endraw %}
+          python-version: "{{ python_min_version }}"
 
+{% raw %}
       - name: Set up uv
         uses: astral-sh/setup-uv@v8.2.0
         with:
@@ -238,3 +242,4 @@ jobs:
 
       - name: Audit locked dependencies
         run: make audit
+{% endraw %}

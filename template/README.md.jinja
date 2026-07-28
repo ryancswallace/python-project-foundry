@@ -5,7 +5,7 @@
 [![Docker]({{ repository_url }}/actions/workflows/docker.yml/badge.svg?branch=main)]({{ repository_url }}/actions/workflows/docker.yml)
 [![CodeQL]({{ repository_url }}/actions/workflows/codeql.yml/badge.svg?branch=main)]({{ repository_url }}/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard]({{ repository_url }}/actions/workflows/scorecard.yml/badge.svg?branch=main)]({{ repository_url }}/actions/workflows/scorecard.yml)
-[![Python {{ python_min_version }}-{{ python_default_version }}](https://img.shields.io/badge/python-{{ python_min_version }}%20%7C%203.12%20%7C%203.13%20%7C%20{{ python_default_version }}-3776AB?logo=python&logoColor=white)]({{ repository_url }}/blob/main/pyproject.toml)
+[![Python {{ python_min_version }}-{{ python_default_version }}](https://img.shields.io/badge/python-{% for minor in range(python_min_version.split(".")[1] | int, (python_default_version.split(".")[1] | int) + 1) %}3.{{ minor }}{% if not loop.last %}%20%7C%20{% endif %}{% endfor %}-3776AB?logo=python&logoColor=white)]({{ repository_url }}/blob/main/pyproject.toml)
 [![Typed with basedpyright](https://img.shields.io/badge/types-basedpyright-2f6fdd)](https://github.com/DetachHead/basedpyright)
 [![Linted with Ruff](https://img.shields.io/badge/lint-Ruff-46a2f1)](https://docs.astral.sh/ruff/)
 [![Coverage gate: {{ coverage_fail_under }}%](https://img.shields.io/badge/coverage%20gate-%E2%89%A5{{ coverage_fail_under }}%25-2e7d32)]({{ repository_url }}/blob/main/pyproject.toml)

@@ -33,10 +33,12 @@ branches:
           - "Quality checks"
           - "Package build and smoke test"
           - "Minimum dependency tests"
-          - "Tests (ubuntu-24.04, Python {{ python_min_version }})"
-          - "Tests (ubuntu-24.04, Python 3.12)"
-          - "Tests (ubuntu-24.04, Python 3.13)"
-          - "Tests (ubuntu-24.04, Python {{ python_default_version }})"
+{% for minor in range(
+  python_min_version.split(".")[1] | int,
+  (python_default_version.split(".")[1] | int) + 1
+) %}
+          - "Tests (ubuntu-24.04, Python 3.{{ minor }})"
+{% endfor %}
       enforce_admins: false
       required_linear_history: true
       allow_force_pushes: false

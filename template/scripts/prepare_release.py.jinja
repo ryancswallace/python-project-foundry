@@ -80,7 +80,7 @@ def update_citation(root: Path, version: str, release_date: str) -> None:
 
 def release_heading_pattern(version: str) -> re.Pattern[str]:
     """Return a regex matching a changelog release heading."""
-    return re.compile(rf"(?m)^## {re.escape(version)} - (?P<date>\d{{4}}-\d{{2}}-\d{{2}})\n")
+    return re.compile(rf"(?m)^## {re.escape(version)} - (?P<date>\d{4}-\d{2}-\d{2})\n")
 
 
 def find_next_heading(content: str, start: int) -> int:
