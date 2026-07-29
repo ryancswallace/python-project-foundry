@@ -25,8 +25,8 @@ scaffold a repository directly from the published package:
 uvx python-project-foundry /path/to/new/project
 ```
 
-If `uv` is not installed, macOS and Linux users can bootstrap it and scaffold
-the repository with one command:
+If `uv` is not installed, bootstrap it and scaffold the repository with one
+command on macOS or Linux:
 
 ```console
 curl -LsSf https://raw.githubusercontent.com/ryancswallace/python-project-foundry/main/ppf | sh -s -- /path/to/new/project
