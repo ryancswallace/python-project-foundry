@@ -4,6 +4,7 @@
 | --- | --- |
 | [Configure a project](configure.md) | Choose names, Python support, repository metadata, and setup behavior |
 | [Develop a generated project](development.md) | Install tools, run checks, build docs, and test containers |
+| [Update a generated project](update.md) | Preview and merge changes from a newer Foundry release |
 | [Publish to GitHub](publish.md) | Create the repository, push `main`, and enable Pages |
 | [Automate generation](unattended.md) | Preview or scaffold with defaults and no prompts |
 | [Troubleshoot](troubleshooting.md) | Diagnose setup, uv, publish, Pages, type-check, and Docker failures |

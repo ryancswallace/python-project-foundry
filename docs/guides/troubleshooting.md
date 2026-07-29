@@ -43,6 +43,14 @@ persistent.
 | Docker daemon is not reachable | Start Docker and verify `docker info`; check socket forwarding in a dev container |
 | Trivy reports a fixed critical vulnerability | Update the owning locked dependency or base image; do not add an ignore unless the finding is proven inapplicable |
 
+## Update failures
+
+| Error | Fix |
+| --- | --- |
+| Working tree has changes | Commit or stash them, then retry |
+| A target tag cannot be fetched | Confirm network access and that the installed Foundry version has a matching `v<version>` Git tag |
+| Inline conflicts remain | Resolve the markers, or restore the clean tree and retry with `--conflict rej` |
+
 ## Publish failures
 
 | Error | Fix |

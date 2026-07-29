@@ -23,10 +23,11 @@ uvx python-project-foundry ./my-project
 
 ## Typical workflow
 
-1. **Scaffold** — answer the project questionnaire.
+1. **Scaffold** — answer the package/library repository questionnaire.
 2. **Review** — inspect the generated files and run `make check`.
 3. **Publish** — explicitly create and push the GitHub repository.
 4. **Develop** — use the generated Make targets and automation.
+5. **Update** — preview and merge changes from newer Foundry releases.
 
 Scaffolding is local by default. GitHub resources are created only when you run
 the [`publish` command](guides/publish.md).
@@ -38,6 +39,7 @@ the [`publish` command](guides/publish.md).
 | Generate a project interactively | [Quickstart](quickstart.md) |
 | Understand or choose questionnaire answers | [Configure a project](guides/configure.md) |
 | Work in the generated repository | [Develop a generated project](guides/development.md) |
+| Apply a newer template release | [Update a generated project](guides/update.md) |
 | Create the GitHub repository and Pages site | [Publish to GitHub](guides/publish.md) |
 | Run without prompts | [Automate generation](guides/unattended.md) |
 | Resolve a failure | [Troubleshooting](guides/troubleshooting.md) |

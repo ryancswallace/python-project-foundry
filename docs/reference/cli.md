@@ -5,10 +5,14 @@ Both executable names invoke the same CLI:
 ```console
 uvx python-project-foundry --help
 ppf --help
+ppf --version
 ```
 
 `ppf` is available when the package is installed as a persistent tool or run
 from a source checkout.
+
+The top-level `--version` option prints the installed
+`python-project-foundry` package version and exits.
 
 ## `template`
 
@@ -46,6 +50,41 @@ skipped, trusted bundled Copier tasks may also:
 - install pre-commit and pre-push hooks.
 
 Task selection also depends on the questionnaire answers and operating system.
+
+## `update`
+
+Update a generated repository to the template tag matching the installed
+Foundry package:
+
+```console
+uvx python-project-foundry update [PROJECT] [OPTIONS]
+```
+
+`PROJECT` defaults to the current directory.
+
+### Arguments and options
+
+| Name | Required | Default | Description |
+| --- | --- | --- | --- |
+| `PROJECT` | No | `.` | Generated repository root |
+| `--defaults` | No | Off | Accept defaults for newly introduced questions |
+| `--pretend` | No | Off | Preview the update without writing changes |
+| `--skip-tasks` | No | Off | Skip regular tasks; required migrations still run |
+| `--conflict MODE` | No | `inline` | Write conflicts `inline` or to `.rej` files |
+| `-h`, `--help` | No | — | Display command help |
+
+### Update behavior
+
+The command:
+
+1. reads `.python-project-foundry.answers.yaml`;
+2. fetches the recorded old template tag and the target tag from GitHub;
+3. retains recorded questionnaire answers;
+4. applies Copier's three-way update and migrations;
+5. leaves the resulting diff for review and validation.
+
+The destination must be a clean Git repository. Local validation and Copier
+update failures return exit status `2` with an `error:` message.
 
 ## `publish`
 

@@ -108,7 +108,11 @@ def test_custom_answers_render_a_consistent_project(tmp_path: Path) -> None:
     copier.run_copy(  # pyright: ignore[reportAttributeAccessIssue]
         src_path=str(source),
         dst_path=destination,
-        data=answers,
+        data={
+            **answers,
+            "_ppf_template_source": "https://github.com/example/python-project-foundry.git",
+            "_ppf_template_version": "9.8.7",
+        },
         defaults=True,
         overwrite=True,
         skip_tasks=True,
@@ -158,6 +162,8 @@ def test_custom_answers_render_a_consistent_project(tmp_path: Path) -> None:
 
     recorded_answers = yaml.safe_load((destination / ".python-project-foundry.answers.yaml").read_text())
     assert answers.items() <= recorded_answers.items()
+    assert recorded_answers["_commit"] == "v9.8.7"
+    assert recorded_answers["_src_path"] == "https://github.com/example/python-project-foundry.git"
 
     for rendered_file in destination.rglob("*"):
         if rendered_file.is_file():

@@ -16,6 +16,7 @@ importable package.
 | `.devcontainer/` | Python, Node, GitHub CLI, uv, and Docker tooling |
 | `Dockerfile` | Runtime and pytest stages |
 | `Makefile` | Development, validation, container, and release interface |
+| `.python-project-foundry.answers.yaml` | Recorded answers and tagged template update metadata |
 | `pyproject.toml` | Package metadata and Python tool settings |
 | `uv.lock` | Locked Python dependency graph |
 | `package.json` | Markdown, spelling, workflow, and Dockerfile tools |

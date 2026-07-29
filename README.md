@@ -32,9 +32,23 @@ Python Project Foundry in an isolated environment. No repository clone or
 separate setup command is required.
 
 Both commands prompt for the template's answers and execute the generated
-project's setup tasks. Run
+repository's setup tasks. Run
 `uvx python-project-foundry template --help` to see options for unattended
 generation, overwriting files, previewing changes, and skipping setup tasks.
+
+## Update a generated repository
+
+From a clean generated repository, preview and apply the template version
+bundled with the installed Foundry release:
+
+```console
+uvx --refresh python-project-foundry update --pretend
+uvx --refresh python-project-foundry update
+make check
+```
+
+Copier preserves repository changes where possible and reports conflicts for
+manual review.
 
 ## Contributor setup
 

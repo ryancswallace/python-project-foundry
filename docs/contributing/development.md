@@ -32,7 +32,7 @@ Useful focused commands include:
 
 | Path | Responsibility |
 | --- | --- |
-| `src/python_project_foundry/` | Published CLI and GitHub publishing code |
+| `src/python_project_foundry/` | Published CLI, template updates, and GitHub publishing code |
 | `copier.yaml` and `copier/` | Questionnaire and Copier lifecycle configuration |
 | `template/` | Generated repository content |
 | `tests/` | CLI, publishing, and rendered-template tests |

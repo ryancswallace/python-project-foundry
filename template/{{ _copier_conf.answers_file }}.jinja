@@ -1,3 +1,14 @@
 # This file records the answers used to generate this project.
-# Commit it so `copier update` can apply future template releases.
+# Commit it so `ppf update` can apply future template releases.
+{% set template_source = _copier_conf.data.get("_ppf_template_source") -%}
+{% set template_version = _copier_conf.data.get("_ppf_template_version") -%}
+{% if template_source and template_version -%}
+{{ _copier_answers
+   | combine({
+       "_commit": "v" ~ template_version,
+       "_src_path": template_source,
+     })
+   | to_nice_yaml -}}
+{% else -%}
 {{ _copier_answers | to_nice_yaml -}}
+{% endif -%}

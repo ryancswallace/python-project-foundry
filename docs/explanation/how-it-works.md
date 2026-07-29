@@ -15,12 +15,17 @@ uvx
 | Layer | Responsibility |
 | --- | --- |
 | uvx | Resolve and run Python Project Foundry in an isolated tool environment |
-| CLI | Parse the focused `template` and `publish` commands |
+| CLI | Parse the focused `template`, `update`, and `publish` commands |
 | Copier | Ask questions, evaluate defaults, render Jinja templates, and run tasks |
 | Generated repository | Own its uv/npm locks, Make commands, CI, docs, and release process |
 
 The template is bundled inside the Python wheel. A package release therefore
 ships one matched CLI and template version.
+
+Generation uses that bundled snapshot and records the canonical Git template
+repository plus the matching release tag in the generated answers file. This
+keeps initial generation self-contained while giving later updates the two
+tagged revisions required for Copier's three-way merge.
 
 ## Copier directory roles
 
@@ -73,6 +78,13 @@ GitHub CLI.
 
 This separation keeps repository visibility and external writes out of the
 questionnaire-driven copy step.
+
+## Update boundary
+
+`ppf update` is pinned to the installed Foundry package version rather than an
+unbounded latest template. It contacts GitHub only to retrieve the recorded
+old tag and that exact target tag. Copier requires a clean generated Git
+repository, applies migrations, and leaves all changes uncommitted for review.
 
 ## Source checkout behavior
 

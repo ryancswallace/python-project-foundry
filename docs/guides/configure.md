@@ -9,7 +9,7 @@ metadata. Press `Enter` to accept a displayed default.
 | --- | --- |
 | Identity | Display name, description, and initial version |
 | Package shape | Distribution slug, import package, and base exception |
-| License | MIT or BSD 3-Clause |
+| License | MIT, BSD 3-Clause, Apache 2.0, MPL 2.0, GPLv3, or proprietary |
 | Python | Minimum, default, and exclusive maximum versions |
 | Tooling | Coverage gate, Git initialization, and post-copy setup |
 | GitHub | Owner, repository name and URL, optional environment reviewer |
@@ -77,7 +77,8 @@ values. Commit it with the repository:
 
 - it documents how names and settings were derived;
 - it makes configuration review straightforward;
-- it provides input for future template migration tooling.
+- it gives `ppf update` the answers and tagged template revision needed for a
+  three-way merge.
 
-Python Project Foundry does not currently expose an update command. To compare
-a newer template release, generate a fresh project and review the diff.
+Do not edit Copier's `_src_path` or `_commit` fields manually. See
+[Update a generated project](update.md) for the update workflow.

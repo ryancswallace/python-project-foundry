@@ -101,6 +101,7 @@ nav:
       - Quickstart: quickstart.md
       - Configure a project: guides/configure.md
       - Develop a generated project: guides/development.md
+      - Update a generated project: guides/update.md
       - Publish to GitHub: guides/publish.md
   - Guides:
       - Guides overview: guides/index.md
