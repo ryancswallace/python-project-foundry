@@ -11,6 +11,11 @@
 Scaffold opinionated, production-ready Python package/library repositories
 with one command.
 
+> [!TIP]
+> **Read the [Python Project Foundry documentation](https://ryancswallace.github.io/python-project-foundry/)**
+> for the quickstart, configuration guides, generated-project reference, and
+> update and publishing workflows.
+
 ## Create a package/library repository
 
 With [`uv`](https://docs.astral.sh/uv/getting-started/installation/) installed,
