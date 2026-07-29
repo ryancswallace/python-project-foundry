@@ -9,8 +9,9 @@
 | `copier/settings/` | Rendering, tasks, messages, and migrations |
 | `copier/shared/` | Reusable question definitions and choices |
 | `template/` | Generated repository files |
-| `src/python_project_foundry/` | CLI and GitHub publishing behavior |
+| `src/python_project_foundry/` | CLI, template updates, and GitHub publishing behavior |
 | `tests/test_template.py` | Rendered-project integration coverage |
+| `tests/test_generated_project.py` | Generated toolchain end-to-end coverage |
 
 Read [How it works](../explanation/how-it-works.md) for the boundary between
 these components.
@@ -51,6 +52,15 @@ Template integration tests verify:
 - no placeholder remains in generated files;
 - generated Python versions match the selected range;
 - important generated configuration remains intact.
+
+CI also creates a repository with default answers, runs its setup tasks,
+executes its Python, Node, documentation, security, and build targets, and
+checks the resulting wheel, source archive, SBOM, and documentation site.
+Run that slower workflow locally with:
+
+```console
+PPF_RUN_GENERATED_E2E=1 uv run pytest -q -s tests/test_generated_project.py
+```
 
 When changing a generated dependency, update its manifest and lockfile
 together and render a fresh project before submitting the change.

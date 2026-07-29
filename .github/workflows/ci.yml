@@ -38,3 +38,30 @@ jobs:
 
       - name: Run checks
         run: make check
+
+  generated-project:
+    name: Generated project
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        shell: bash
+        run: |
+          curl -LsSf https://astral.sh/uv/0.11.33/install.sh \
+            | env UV_UNMANAGED_INSTALL="$RUNNER_TEMP/uv-bin" sh
+          echo "$RUNNER_TEMP/uv-bin" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/uv-bin/uv" --version
+
+      - name: Install Foundry test dependencies
+        run: uv sync --locked --group test
+
+      - name: Generate and validate a repository
+        env:
+          PPF_RUN_GENERATED_E2E: "1"
+        run: uv run pytest -q -s tests/test_generated_project.py
