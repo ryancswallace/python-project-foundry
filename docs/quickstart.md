@@ -1,5 +1,7 @@
 # Quickstart
 
+Python Project Foundry generates Python package/library repositories.
+
 ## 1. Check the prerequisites
 
 | Requirement | Needed for |
@@ -13,7 +15,7 @@ The automatic post-copy setup tasks run on Linux and macOS. On another
 platform, render with `--skip-tasks` and prepare the project in a POSIX
 environment.
 
-## 2. Generate the project
+## 2. Generate the package/library repository
 
 ```console
 uvx python-project-foundry /path/to/new/project

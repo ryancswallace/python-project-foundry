@@ -4,7 +4,7 @@
 # that would otherwise require repository administration access.
 
 repository:
-  description: "Python project template that follows proven patterns. Scaffolds libraries, CLIs, and web services."
+  description: "Scaffold opinionated, production-ready Python package/library repositories."
   homepage: "https://ryancswallace.github.io/python-project-foundry/"
   topics: "copier, copier-template, project-generator, project-template, python, python-template, scaffolding, template"
   has_issues: true

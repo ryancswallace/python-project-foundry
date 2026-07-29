@@ -1,8 +1,7 @@
 # Generated project reference
 
-Python Project Foundry currently generates an importable Python library. The
-reserved CLI and service questionnaire sections do not yet add application
-entry points or web-service frameworks.
+Python Project Foundry generates Python package/library repositories with an
+importable package.
 
 ## Top-level layout
 

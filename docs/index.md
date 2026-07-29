@@ -1,7 +1,7 @@
 # Python Project Foundry
 
-Create an opinionated, production-ready Python package repository from one
-interactive command.
+Create an opinionated, production-ready Python package/library repository from
+one interactive command.
 
 ```console
 uvx python-project-foundry ./my-project

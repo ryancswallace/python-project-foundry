@@ -8,17 +8,20 @@
 
 # Python Project Foundry
 
-## Create a project
+Scaffold opinionated, production-ready Python package/library repositories
+with one command.
+
+## Create a package/library repository
 
 With [`uv`](https://docs.astral.sh/uv/getting-started/installation/) installed,
-scaffold a project directly from the published package:
+scaffold a repository directly from the published package:
 
 ```console
 uvx python-project-foundry /path/to/new/project
 ```
 
 If `uv` is not installed, macOS and Linux users can bootstrap it and scaffold
-the project with one command:
+the repository with one command:
 
 ```console
 curl -LsSf https://raw.githubusercontent.com/ryancswallace/python-project-foundry/main/ppf | sh -s -- /path/to/new/project

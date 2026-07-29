@@ -1,7 +1,7 @@
 [project]
 name = "python-project-foundry"
 version = "0.2.0"
-description = "Python project template that follows proven patterns. Scaffolds libraries, CLIs, and web services."
+description = "Scaffold opinionated, production-ready Python package/library repositories."
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
 license = "MIT"

@@ -9,9 +9,9 @@
   color: "a2eeef"
   description: A new feature or improvement request.
 
-- name: go
-  color: "00add8"
-  description: Go source, module metadata, or toolchain configuration.
+- name: python
+  color: "3776ab"
+  description: Python source, package metadata, or toolchain configuration.
 
 - name: cli
   color: "1d76db"
@@ -19,7 +19,7 @@
 
 - name: api
   color: "1d76db"
-  description: Exported Go symbols, public behavior, or compatibility surface.
+  description: Exported Python symbols, public behavior, or compatibility surface.
 
 - name: configuration
   color: "006b75"
@@ -47,7 +47,7 @@
 
 - name: dependencies
   color: "0366d6"
-  description: Go modules, Actions, images, or development tool dependencies.
+  description: Python packages, Actions, images, or development tool dependencies.
 
 - name: containers
   color: "0db7ed"

@@ -25,10 +25,6 @@
 ---
 !include copier/questions/tooling.yaml
 ---
-!include copier/questions/cli.yaml
----
-!include copier/questions/service.yaml
----
 !include copier/questions/ci.yaml
 ---
 !include copier/questions/docs.yaml

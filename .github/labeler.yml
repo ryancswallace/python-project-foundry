@@ -36,7 +36,8 @@ dependencies:
       - "^deps?(?:/|$)"
   - changed-files:
       - any-glob-to-any-file:
-          - poetry.lock
+          - pyproject.toml
+          - uv.lock
           - .github/dependabot.yml
           - ".devcontainer/devcontainer-lock.json"
 

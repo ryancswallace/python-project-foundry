@@ -1,5 +1,5 @@
 site_name: Python Project Foundry
-site_description: Scaffold maintainable Python projects with one command.
+site_description: Scaffold maintainable Python package/library repositories with one command.
 site_author: Ryan Wallace
 site_url: https://ryancswallace.github.io/python-project-foundry/
 repo_name: ryancswallace/python-project-foundry
