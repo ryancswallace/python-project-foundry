@@ -11,6 +11,7 @@ import tomllib
 from pathlib import Path
 
 import copier
+import pytest
 import yaml
 
 PROJECT_ROOT = Path(__file__).parents[1]
@@ -36,6 +37,30 @@ PLACEHOLDER_NAMES = {
     "repository_url",
 }
 UNRENDERED_PLACEHOLDER = re.compile(r"{{\s*(" + "|".join(sorted(PLACEHOLDER_NAMES)) + r")\b")
+LICENSE_CASES = [
+    ("MIT", "MIT License", "License :: OSI Approved :: MIT License"),
+    ("BSD-3-Clause", "BSD 3-Clause License", "License :: OSI Approved :: BSD License"),
+    (
+        "Apache-2.0",
+        "Apache License",
+        "License :: OSI Approved :: Apache Software License",
+    ),
+    (
+        "MPL-2.0",
+        "Mozilla Public License Version 2.0",
+        "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    ),
+    (
+        "GPL-3.0-only",
+        "GNU GENERAL PUBLIC LICENSE",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    ),
+    (
+        "LicenseRef-Proprietary",
+        "Proprietary and Confidential",
+        "License :: Other/Proprietary License",
+    ),
+]
 
 
 def _copy_template_source(destination: Path) -> Path:
@@ -97,6 +122,7 @@ def test_custom_answers_render_a_consistent_project(tmp_path: Path) -> None:
     pyproject = tomllib.loads((destination / "pyproject.toml").read_text())
     assert pyproject["project"]["name"] == "orbit-tools"
     assert pyproject["project"]["requires-python"] == ">=3.12,<3.15"
+    assert pyproject["project"]["license-files"] == ["LICENSE"]
     assert "License :: OSI Approved :: BSD License" in pyproject["project"]["classifiers"]
     assert "Programming Language :: Python :: 3.11" not in pyproject["project"]["classifiers"]
 
@@ -139,9 +165,59 @@ def test_custom_answers_render_a_consistent_project(tmp_path: Path) -> None:
             assert not UNRENDERED_PLACEHOLDER.search(content), rendered_file
 
 
+@pytest.mark.parametrize(("license_expression", "license_marker", "classifier"), LICENSE_CASES)
+def test_every_license_choice_renders_consistent_metadata(
+    tmp_path: Path,
+    license_expression: str,
+    license_marker: str,
+    classifier: str,
+) -> None:
+    source = _copy_template_source(tmp_path)
+    destination = tmp_path / "license-test"
+
+    copier.run_copy(  # pyright: ignore[reportAttributeAccessIssue]
+        src_path=str(source),
+        dst_path=destination,
+        data={
+            "license": license_expression,
+            "author_name": "Ada Example",
+            "copyright_year": 2027,
+            "initialize_git_repository": False,
+            "run_setup_tasks": False,
+        },
+        defaults=True,
+        overwrite=True,
+        skip_tasks=True,
+        unsafe=True,
+        quiet=True,
+    )
+
+    license_text = (destination / "LICENSE").read_text()
+    assert license_marker in license_text
+    assert "2027" in license_text
+    assert "Ada Example" in license_text
+    assert not (destination / ".license-texts").exists()
+
+    pyproject = tomllib.loads((destination / "pyproject.toml").read_text())
+    assert pyproject["project"]["license"] == license_expression
+    assert pyproject["project"]["license-files"] == ["LICENSE"]
+    assert classifier in pyproject["project"]["classifiers"]
+
+    readme = (destination / "README.md").read_text()
+    if license_expression == "LicenseRef-Proprietary":
+        assert "is proprietary software" in readme
+        assert "All rights are reserved" in readme
+    else:
+        assert f"[{license_expression} license](LICENSE)" in readme
+
+
 def test_every_template_placeholder_has_a_question() -> None:
     template_placeholders: set[str] = set()
-    for template_file in (PROJECT_ROOT / "template").rglob("*.jinja"):
+    template_files = [
+        *(PROJECT_ROOT / "template").rglob("*.jinja"),
+        *(PROJECT_ROOT / "template/.license-texts").glob("*.txt"),
+    ]
+    for template_file in template_files:
         template_placeholders.update(UNRENDERED_PLACEHOLDER.findall(template_file.read_text()))
 
     assert template_placeholders == PLACEHOLDER_NAMES

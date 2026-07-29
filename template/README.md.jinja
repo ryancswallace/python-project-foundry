@@ -58,4 +58,9 @@ strict mode and generates API reference pages from package docstrings.
 
 ## License
 
-{{ project_name }} is distributed under the [{{ license }} License](LICENSE).
+{% if license == "LicenseRef-Proprietary" -%}
+{{ project_name }} is proprietary software. All rights are reserved; see the
+[proprietary notice](LICENSE) for details.
+{% else -%}
+{{ project_name }} is distributed under the [{{ license }} license](LICENSE).
+{% endif -%}

@@ -5,6 +5,7 @@ description = "{{ project_description }}"
 readme = "README.md"
 requires-python = ">={{ python_min_version }},<{{ python_max_version_exclusive }}"
 license = "{{ license }}"
+license-files = ["LICENSE"]
 authors = [
     { name = "{{ author_name }}", email = "{{ author_email }}" },
 ]
@@ -21,6 +22,14 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 {% elif license == "BSD-3-Clause" %}
     "License :: OSI Approved :: BSD License",
+{% elif license == "Apache-2.0" %}
+    "License :: OSI Approved :: Apache Software License",
+{% elif license == "MPL-2.0" %}
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+{% elif license == "GPL-3.0-only" %}
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+{% elif license == "LicenseRef-Proprietary" %}
+    "License :: Other/Proprietary License",
 {% endif %}
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",

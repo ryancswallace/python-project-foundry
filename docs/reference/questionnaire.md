@@ -13,7 +13,22 @@ answers or the destination directory name.
 | `project_slug` | Slugified project name | Lowercase words separated by single hyphens | Distribution, repository, and image names |
 | `package_name` | Slug with hyphens replaced by underscores | Valid Python identifier | Import package under `src/` |
 | `exception_class_name` | PascalCase slug plus `Error` | Starts uppercase and ends in `Error` | Public base exception |
-| `license` | `MIT` | MIT or BSD 3-Clause | License file, metadata, and classifiers |
+| `license` | `MIT` | One of the supported SPDX expressions or `LicenseRef-Proprietary` | License file, metadata, and classifiers |
+
+Supported choices:
+
+| Choice | Expression | Model |
+| --- | --- | --- |
+| MIT License | `MIT` | Permissive |
+| BSD 3-Clause License | `BSD-3-Clause` | Permissive |
+| Apache License 2.0 | `Apache-2.0` | Permissive; includes an explicit patent grant |
+| Mozilla Public License 2.0 | `MPL-2.0` | File-level copyleft |
+| GNU General Public License v3 | `GPL-3.0-only` | Strong copyleft; version 3 only |
+| Proprietary / All rights reserved | `LicenseRef-Proprietary` | No reuse permission granted |
+
+The proprietary choice generates a general-purpose all-rights-reserved notice,
+not an open source license. Have counsel review or replace it when your
+organization requires specific commercial terms.
 
 ## Python and quality
 

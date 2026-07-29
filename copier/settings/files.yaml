@@ -1,8 +1,9 @@
 ### File selection and rendering rules
 
-# With _subdirectory set to a real path, default exclude is [].
-# Declared here explicitly for clarity.
-_exclude: []
+# Source-only license texts are included by LICENSE.jinja and must not be
+# copied into generated projects.
+_exclude:
+  - .license-texts
 
 # Copier's update algorithm should manage every generated file. In particular,
 # policy, workflow, and lock files should continue to receive template updates.
