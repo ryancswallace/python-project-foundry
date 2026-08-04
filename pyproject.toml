@@ -98,7 +98,7 @@ Source = "https://github.com/ryancswallace/python-project-foundry"
 
 [tool.uv]
 link-mode = "copy"
-required-version = ">=0.11.8,<0.12"
+required-version = ">=0.11.8,<0.13"
 
 [build-system]
 requires = ["hatchling>=1.30.1"]

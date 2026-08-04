@@ -20,7 +20,7 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 ### Tooling
-UV_VERSION ?= 0.11.32
+UV_VERSION ?= 0.12.1
 UV_INSTALL_DIR ?= $(HOME)/.local/bin
 UV_INSTALL_URL ?= https://astral.sh/uv/$(UV_VERSION)/install.sh
 UV ?= uv
@@ -57,7 +57,8 @@ bootstrap:  #doc# Install a compatible uv version when it is not already availab
 	if command -v "$(UV)" >/dev/null 2>&1; then \
 	  uv_version=$$("$(UV)" --version | awk '{ print $$2 }'); \
 	fi; \
-	if [ -n "$$uv_version" ] && echo "$$uv_version" | awk -F. '{ exit !($$1 == 0 && $$2 == 11 && $$3 + 0 >= 8) }'; then \
+	if [ -n "$$uv_version" ] && echo "$$uv_version" | awk -F. \
+	  '{ exit !($$1 == 0 && (($$2 == 11 && $$3 + 0 >= 8) || $$2 == 12)) }'; then \
 	  "$(UV)" --version; \
 	else \
 	  echo "Compatible uv not found; installing uv $(UV_VERSION) to $(UV_INSTALL_DIR)."; \

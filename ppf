@@ -3,7 +3,7 @@
 # Bootstrap and run Python Project Foundry from a source checkout.
 set -eu
 
-UV_VERSION="0.11.32"
+UV_VERSION="0.12.1"
 UV_INSTALL_DIR="${UV_INSTALL_DIR:-$HOME/.local/bin}"
 UV_INSTALL_URL="${UV_INSTALL_URL:-https://astral.sh/uv/$UV_VERSION/install.sh}"
 PPF_GIT_SOURCE="git+https://github.com/ryancswallace/python-project-foundry"
@@ -12,7 +12,7 @@ script_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 
 uv_is_compatible() {
     candidate_version=$("$1" --version 2>/dev/null | awk '{ print $2 }') || return 1
-    echo "$candidate_version" | awk -F. '{ exit !($1 == 0 && $2 == 11 && $3 + 0 >= 8) }'
+    echo "$candidate_version" | awk -F. '{ exit !($1 == 0 && (($2 == 11 && $3 + 0 >= 8) || $2 == 12)) }'
 }
 
 if [ -n "${PPF_SOURCE:-}" ]; then
