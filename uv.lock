@@ -1913,7 +1913,7 @@ wheels = [
 
 [[package]]
 name = "python-project-foundry"
-version = "1.0.0"
+version = "1.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "copier" },

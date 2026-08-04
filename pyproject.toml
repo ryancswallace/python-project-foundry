@@ -1,6 +1,6 @@
 [project]
 name = "python-project-foundry"
-version = "1.0.0"
+version = "1.0.1"
 description = "Scaffold opinionated, production-ready Python package/library repositories."
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
