@@ -136,7 +136,11 @@ def test_custom_answers_render_a_consistent_project(tmp_path: Path) -> None:
     dockerfile = (destination / "Dockerfile").read_text()
     assert "uv sync --locked --no-dev --group test" in dockerfile
 
-    make_environment = {**os.environ, "UV_PROJECT_ENVIRONMENT": "/tmp/shared-uv-environment"}
+    make_environment = {
+        **os.environ,
+        "UV_PROJECT_ENVIRONMENT": "/tmp/shared-uv-environment",
+        "VIRTUAL_ENV": "/tmp/caller-virtual-environment",
+    }
     make_result = subprocess.run(
         [
             "make",
@@ -145,16 +149,16 @@ def test_custom_answers_render_a_consistent_project(tmp_path: Path) -> None:
             "Makefile",
             "-f",
             "-",
-            "print-uv-project-environment",
+            "print-project-environment",
         ],
         cwd=destination,
         env=make_environment,
         check=True,
         capture_output=True,
         text=True,
-        input="print-uv-project-environment:\n\t@printf '%s' '$(UV_PROJECT_ENVIRONMENT)'\n",
+        input=('print-project-environment:\n\t@printf \'%s\\n\' "$$UV_PROJECT_ENVIRONMENT" "$${VIRTUAL_ENV-unset}"\n'),
     )
-    assert make_result.stdout == ".venv"
+    assert make_result.stdout.splitlines() == [".venv", "unset"]
 
     workflow = yaml.safe_load((destination / ".github/workflows/ci.yml").read_text())
     versions = [

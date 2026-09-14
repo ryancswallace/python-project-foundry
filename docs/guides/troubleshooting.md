@@ -9,6 +9,23 @@
 | Destination files conflict | The directory already contains files Copier manages | Preview with `--pretend`; use `--overwrite` only after reviewing |
 | Hooks are missing | Git initialization or setup tasks were disabled | Initialize Git if needed, then run `make hooks-install` |
 
+## Active virtual environment warnings
+
+Setup commands can inherit `VIRTUAL_ENV` from the environment running Foundry.
+uv warns when that path differs from the generated project's `.venv`.
+Generated Makefiles now stop forwarding `VIRTUAL_ENV` to child commands, so
+setup uses the new project's environment without this warning.
+
+For an older generated repository, add this directive to its Makefile:
+
+```makefile
+unexport VIRTUAL_ENV
+```
+
+For direct uv commands, use `uv sync --no-active` or `uv run --no-active ...`
+to explicitly use the project's environment and silence the mismatch warning.
+See [uv's project environment documentation](https://docs.astral.sh/uv/concepts/projects/config/#project-environment-path).
+
 ## uv cannot write its tool directory
 
 Example:

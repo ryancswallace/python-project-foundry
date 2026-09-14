@@ -10,6 +10,10 @@ export PATH := $(HOME)/.local/bin:$(HOME)/.cargo/bin:$(PATH)
 UV_PROJECT_ENVIRONMENT := .venv
 export UV_PROJECT_ENVIRONMENT
 
+# The caller may be running in uvx's environment or another project's venv.
+# Let uv use this repository's environment without a mismatch warning.
+unexport VIRTUAL_ENV
+
 PROJECT_SLUG ?= {{ project_slug }}
 PACKAGE_NAME ?= {{ package_name }}
 DIST_FILE_STEM ?= {{ project_slug | replace("-", "_") }}
