@@ -141,7 +141,10 @@ def test_custom_answers_render_a_consistent_project(tmp_path: Path) -> None:
         [
             "make",
             "--no-print-directory",
-            "--eval=print-uv-project-environment:\n\t@printf '%s' '$(UV_PROJECT_ENVIRONMENT)'",
+            "-f",
+            "Makefile",
+            "-f",
+            "-",
             "print-uv-project-environment",
         ],
         cwd=destination,
@@ -149,6 +152,7 @@ def test_custom_answers_render_a_consistent_project(tmp_path: Path) -> None:
         check=True,
         capture_output=True,
         text=True,
+        input="print-uv-project-environment:\n\t@printf '%s' '$(UV_PROJECT_ENVIRONMENT)'\n",
     )
     assert make_result.stdout == ".venv"
 
